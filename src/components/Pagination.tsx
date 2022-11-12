@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import { useQuery } from 'react-query';
 
 const Pagination = ({ totalPost, limit, selectPage }: number | any): JSX.Element => {
-  // const [pages, setPages] = useState<number[]>([]);
-  // const pages: number[] = [];
-  // for (let i = 1; i < Math.ceil(totalPost / 10); i++) {
-  //   pages.push(i);
+  // pageList - 그냥 반복문으로 할 때
+  // const pageList: number[] = [];
+  // for (let i = 1; i <= Math.ceil(totalPost / 10); i++) {
+  //   pageList.push(i);
   // }
+  // console.log('list', pageList)
+
+  console.log('total', Math.ceil(totalPost / 10));
+  // pageList - range 함수 직접 만들어서 쓸 때
+  const range = (size: number, start: number) => {
+    return Array(size)
+      .fill(start)
+      .map((x, y) => x + y);
+  };
 
   const [nowPage, setNowPage] = useState(1);
   const lastPage = Math.ceil(totalPost / limit);
-
+  console.log('last', lastPage);
   selectPage = Number(selectPage);
   console.log(selectPage, 'select');
 

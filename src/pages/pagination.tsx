@@ -9,16 +9,16 @@ import Pagination from '../components/Pagination';
 
 const PaginationPage: NextPage = () => {
   const router = useRouter();
-  // const { page } = router.query;
   const page = Number(router.query.page);
   const [selectPage, setSelectPage] = useState(1);
-  const [products, setProducts] = useState<Product[]>([]);
-  // const [page, setPage] = useState(1);
+
+  // 페이지 이동 시 보여줄 products
+  const lastPage = page * 10; // 10개씩 보여줄거니까
+  const firstPage = lastPage - 10;
 
   console.log(router.query.page, 'rotuer');
 
-  const productsFetch = async (page: number) => {};
-
+  // url 바꾸기
   const changePage = (page: number) => {
     router.push(`pagination?page=${page}`, undefined, { shallow: true, scroll: true });
   };
@@ -32,8 +32,13 @@ const PaginationPage: NextPage = () => {
   return (
     <>
       <Container>
-        <ProductList products={products} />
-        <Pagination totalPost={products.length} limit={5} selectPage={page} onChange={changePage} />
+        <ProductList products={products.slice(firstPage, lastPage)} />
+        <Pagination
+          totalPost={products.length}
+          limit={5}
+          selectPage={selectPage}
+          onChange={changePage}
+        />
       </Container>
     </>
   );
