@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
 import React from 'react';
 import styled from 'styled-components';
@@ -6,37 +5,19 @@ import styled from 'styled-components';
 const LoginPage: NextPage = () => {
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Form>
-        <div>아이디</div>
-        <TextInput type='text' />
-        <div>비밀번호</div>
-        <TextInput type='password' />
-        <LoginButton disabled>로그인</LoginButton>
+        <Label htmlFor='userId'>아이디</Label>
+        <TextInput type='text' name='userId' required minLength={5} maxLength={30} />
+        <Margin />
+        <Label htmlFor='userPw'>비밀번호</Label>
+        <TextInput type='password' name='userPw' />
+        <LoginButton>로그인</LoginButton>
       </Form>
     </>
   );
 };
 
 export default LoginPage;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
 
 const Form = styled.div`
   display: flex;
@@ -45,8 +26,21 @@ const Form = styled.div`
   padding: 0 20px 40px;
 `;
 
+const Label = styled.label`
+  font-weight: 700;
+  font-size: 13px;
+  color: #6c6c7d;
+`;
+
 const TextInput = styled.input`
-  border: 1px solid #000;
+  margin-top: 8px;
+  padding: 16px;
+  background: #f7f7fa;
+  border-radius: 12px;
+`;
+
+const Margin = styled.div`
+  margin: 8px 0;
 `;
 
 const LoginButton = styled.button`
@@ -55,7 +49,7 @@ const LoginButton = styled.button`
   border-radius: 12px;
   background-color: #222;
   color: #fff;
-
+  cursor: pointer;
   &:disabled {
     background-color: #e2e2ea;
   }

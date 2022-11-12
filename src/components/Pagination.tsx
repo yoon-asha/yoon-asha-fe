@@ -1,21 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import { useQuery } from 'react-query';
 
-const Pagination = () => {
+const Pagination = ({ totalPost, limit, selectPage }: number | any): JSX.Element => {
+  // const [pages, setPages] = useState<number[]>([]);
+  // const pages: number[] = [];
+  // for (let i = 1; i < Math.ceil(totalPost / 10); i++) {
+  //   pages.push(i);
+  // }
+
+  const [nowPage, setNowPage] = useState(1);
+  const lastPage = Math.ceil(totalPost / limit);
+
+  selectPage = Number(selectPage);
+  console.log(selectPage, 'select');
+
+  // state
+  const [show, setShow] = useState(true);
+
+  /** clickPrev
+   * 5씩 숫자가 바뀔거니까(1-5, 6-10)
+   * 이전페이지는 -5
+   */
+  const clickPrev = () => {};
+
+  /** clickNext
+   * 다음페이지는 +5
+   */
+  const clickNext = () => {};
+
   return (
     <Container>
-      <Button disabled>
+      {/* 
+      1이면 
+      < 비활성화
+       > 활성화
+
+      5보다 크고 끝이 아니면 
+      < 활성화 
+      > 비활성화
+      */}
+      <Button disabled={show} onClick={clickPrev}>
         <VscChevronLeft />
       </Button>
       <PageWrapper>
         {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
+          <Page key={page} selected={page === selectPage} disabled={page === selectPage}>
             {page}
           </Page>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+      <Button disabled={!show} onClick={clickNext}>
         <VscChevronRight />
       </Button>
     </Container>
@@ -35,6 +71,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   &:disabled {
     color: #e2e2ea;
     cursor: default;
@@ -55,7 +92,7 @@ const Page = styled.button<PageType>`
   background-color: ${({ selected }) => (selected ? '#000' : 'transparent')};
   color: ${({ selected }) => (selected ? '#fff' : '#000')};
   font-size: 20px;
-
+  cursor: pointer;
   & + & {
     margin-left: 4px;
   }
