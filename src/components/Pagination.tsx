@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import usePagination from './usePagination';
+import { usePagination } from './usePagination';
 
 type PaginationProps = {
   lastPage: number;
@@ -10,13 +10,8 @@ type PaginationProps = {
   // React.ChangeEvent<..뭘 넣어야 될지 공부해야될 듯> ?
 };
 
-const Pagination = ({
-  lastPage,
-  limit,
-  currentPage = 1,
-  onChange,
-}: PaginationProps): JSX.Element => {
-  const { pages, firstGroup, lastGroup, clickPageBtn, clickPrevBtn, clickPageBtn } = usePagination({
+const Pagination = ({ currentPage = 1, lastPage, limit, onChange }: PaginationProps) => {
+  const { pages, firstGroup, lastGroup, clickPageBtn, clickPrevBtn, clickNextBtn } = usePagination({
     lastPage,
     limit,
     currentPage,
@@ -49,7 +44,7 @@ const Pagination = ({
           </Page>
         ))}
       </PageWrapper>
-      <Button onClick={clickPageBtn} disabled={lastGroup}>
+      <Button onClick={clickNextBtn} disabled={lastGroup}>
         <VscChevronRight />
       </Button>
     </Container>

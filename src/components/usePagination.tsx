@@ -47,7 +47,7 @@ const usePagination = ({ lastPage, limit, currentPage, onChange }: usePagination
   const lastGroup = currentGroupIndex.current === pageGroup.current.length - 1;
 
   // page button click
-  const clickPageBtn = (e: MouseEvent) => {
+  const clickPageBtn = (e: any) => {
     const { textContent } = e.target;
     const selectPage = Number(textContent);
     onChange(selectPage); // page url 변경
@@ -77,3 +77,4 @@ const usePagination = ({ lastPage, limit, currentPage, onChange }: usePagination
 };
 
 export default usePagination;
+// module.exports = usePagination;
