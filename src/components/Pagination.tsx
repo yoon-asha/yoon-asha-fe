@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import usePagination from './usePagination';
+import { usePagination } from './usePagination';
 
 type PaginationProps = {
   lastPage: number;
@@ -16,7 +16,7 @@ const Pagination = ({
   currentPage = 1,
   onChange,
 }: PaginationProps): JSX.Element => {
-  const { pages, firstGroup, lastGroup, clickPageBtn, clickPrevBtn, clickPageBtn } = usePagination({
+  const { pages, firstGroup, lastGroup, clickPageBtn, clickPrevBtn, clickNextBtn } = usePagination({
     lastPage,
     limit,
     currentPage,
