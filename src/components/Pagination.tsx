@@ -10,7 +10,12 @@ type PaginationProps = {
   // React.ChangeEvent<..뭘 넣어야 될지 공부해야될 듯> ?
 };
 
-const Pagination = ({ currentPage = 1, lastPage, limit, onChange }: PaginationProps) => {
+const Pagination = ({
+  lastPage,
+  limit,
+  currentPage = 1,
+  onChange,
+}: PaginationProps): JSX.Element => {
   const { pages, firstGroup, lastGroup, clickPageBtn, clickPrevBtn, clickNextBtn } = usePagination({
     lastPage,
     limit,
