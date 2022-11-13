@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
-const Pagination = ({ totalPost, limit, selectPage }: number | any): JSX.Element => {
-  // pageList - 그냥 반복문으로 할 때
-  // const pageList: number[] = [];
-  // for (let i = 1; i <= Math.ceil(totalPost / 10); i++) {
-  //   pageList.push(i);
-  // }
-  // console.log('list', pageList)
+const Pagination = ({ totalPost, selectPage }: number | any): JSX.Element => {
+  /**
+   * totalPost - 총 게시물 개수
+   * selectPage - 지금 선택한 페이지
+   * limit - 한 번에 보여줄 페이지 버튼 수
+   *
+   * viewPageList - 버튼 리스트 5개씩 보여주기
+   *
+   *
+   */
 
-  console.log('total', Math.ceil(totalPost / 10));
   // pageList - range 함수 직접 만들어서 쓸 때
   const range = (size: number, start: number) => {
     return Array(size)
@@ -18,14 +20,31 @@ const Pagination = ({ totalPost, limit, selectPage }: number | any): JSX.Element
       .map((x, y) => x + y);
   };
 
-  const [nowPage, setNowPage] = useState(1);
-  const lastPage = Math.ceil(totalPost / limit);
-  console.log('last', lastPage);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 5;
   selectPage = Number(selectPage);
-  console.log(selectPage, 'select');
 
   // state
   const [show, setShow] = useState(true);
+
+  // 5개씩 보여줄 리스트
+  const viewPageList = (totalPost: number, limit: number) => {
+    // [1~11까지 배열]
+    const totalPageGroup = range(totalPost, 1);
+
+    //totalPageGroup을 5개씨 나눌 배열
+    const pageGroup = [];
+    for (let i = 0; i < totalPageGroup.length; i += limit) {
+      pageGroup.push(totalPageGroup.slice(i, i + limit));
+    }
+
+    return pageGroup;
+  };
+
+  // 현재 페이지 그룹의 index
+  const currentGroupIdx = (currentPage: number, limit: number) => {
+    return Math.ceil(currentPage / limit) - 1;
+  };
 
   /** clickPrev
    * 5씩 숫자가 바뀔거니까(1-5, 6-10)

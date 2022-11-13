@@ -33,12 +33,7 @@ const PaginationPage: NextPage = () => {
     <>
       <Container>
         <ProductList products={products.slice(firstPage, lastPage)} />
-        <Pagination
-          totalPost={products.length}
-          limit={5}
-          selectPage={selectPage}
-          onChange={changePage}
-        />
+        <Pagination totalPost={products.length} selectPage={selectPage} onChange={changePage} />
       </Container>
     </>
   );
