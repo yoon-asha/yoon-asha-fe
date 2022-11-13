@@ -10,13 +10,11 @@ import Pagination from '../components/Pagination';
 const PaginationPage: NextPage = () => {
   const router = useRouter();
   const page = Number(router.query.page);
-  const [selectPage, setSelectPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // 페이지 이동 시 보여줄 products
   const lastPage = page * 10; // 10개씩 보여줄거니까
   const firstPage = lastPage - 10;
-
-  console.log(router.query.page, 'rotuer');
 
   // url 바꾸기
   const changePage = (page: number) => {
@@ -25,7 +23,7 @@ const PaginationPage: NextPage = () => {
 
   useEffect(() => {
     if (page) {
-      setSelectPage(page);
+      setCurrentPage(page);
     }
   }, [page]);
 
@@ -33,7 +31,12 @@ const PaginationPage: NextPage = () => {
     <>
       <Container>
         <ProductList products={products.slice(firstPage, lastPage)} />
-        <Pagination totalPost={products.length} selectPage={selectPage} onChange={changePage} />
+        <Pagination
+          lastPage={Math.ceil(products.length / 10)}
+          limit={5}
+          currentPage={currentPage}
+          onChange={changePage}
+        />
       </Container>
     </>
   );
