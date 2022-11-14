@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import { Product } from '../types/product';
@@ -7,13 +8,21 @@ type ProductListProps = {
   products: Product[];
 };
 
-const ProductList = ({ products }: ProductListProps) => (
-  <Container>
-    {products.map((product) => (
-      <ProductItem key={product.id} product={product} />
-    ))}
-  </Container>
-);
+const ProductList = ({ products }: ProductListProps) => {
+  return (
+    <>
+      <Container>
+        {products.map((product) => (
+          <Link href={`/products/${product.id}`}>
+            <a>
+              <ProductItem key={product.id} product={product} />
+            </a>
+          </Link>
+        ))}
+      </Container>
+    </>
+  );
+};
 
 export default ProductList;
 

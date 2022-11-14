@@ -27,6 +27,12 @@ const PaginationPage: NextPage = () => {
     }
   }, [page]);
 
+  // 존재하지 않는 페이지에 들어갔을 때
+  if (page < 1 || page > Math.ceil(products.length / 10)) {
+    console.log('hello');
+    return <div style={{ textAlign: 'center', margin: 50 }}>존재하지 않는 페이지입니다.</div>;
+  }
+
   return (
     <>
       <Container>

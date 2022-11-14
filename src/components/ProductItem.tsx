@@ -6,17 +6,26 @@ type ProductItemProps = {
   product: Product;
 };
 
-const ProductItem = ({ product: { name, thumbnail, price } }: ProductItemProps) => (
-  <Container>
-    <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
-    <Name>{name}</Name>
-    <Price>{price}</Price>
-  </Container>
-);
+const ProductItem = ({ product: { name, thumbnail, price } }: ProductItemProps) => {
+  return (
+    <>
+      <Container>
+        <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
+        <Name>{name}</Name>
+        <Price>
+          {
+            price.toLocaleString('ko-KR')
+            // 정규식은 .toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+          }
+        </Price>
+      </Container>
+    </>
+  );
+};
 
 export default ProductItem;
 
-const Container = styled.a`
+const Container = styled.div`
   width: 180px;
   margin-left: 20px;
   margin-top: 20px;

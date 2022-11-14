@@ -93,9 +93,6 @@ const Page = styled.button<PageType>`
   & + & {
     margin-left: 4px;
   }
-  &:hover {
-    background-color: #d3d3d3;
-  }
   &:disabled {
     cursor: default;
   }
