@@ -10,7 +10,6 @@ const range = (size: number, start: number) => {
 /** usePagination custom Hook
  * viewPageList - pagination 버튼들 5개씩 보여주기
  * currentGroupList - 현재 페이지 그룹의 index(5면 0, 8이면 1)
- *
  */
 
 const viewPageList = (lastPage: number, limit: number) => {
@@ -35,7 +34,6 @@ type usePaginationArgs = {
   limit: number;
   currentPage: number;
   onChange: any;
-  // React.ChangeEvent<..뭘 넣어야 될지 공부해야될 듯> ?
 };
 
 const usePagination = ({ lastPage, limit, currentPage, onChange }: usePaginationArgs) => {
@@ -74,7 +72,8 @@ const usePagination = ({ lastPage, limit, currentPage, onChange }: usePagination
       onChange(pageGroup.current[currentGroupIndex.current][0]);
     }
   };
+
+  return { pages, firstGroup, lastGroup, clickPageBtn, clickPrevBtn, clickNextBtn };
 };
 
 export default usePagination;
-// module.exports = usePagination;

@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
-import { usePagination } from './usePagination';
+import usePagination from './usePagination';
 
 type PaginationProps = {
   lastPage: number;
   limit: number;
   currentPage: number;
   onChange: any;
-  // React.ChangeEvent<..뭘 넣어야 될지 공부해야될 듯> ?
 };
 
 const Pagination = ({
@@ -38,7 +37,7 @@ const Pagination = ({
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {pages.map((page) => (
+        {pages.map((page: number) => (
           <Page
             key={page}
             selected={page === currentPage}
@@ -94,7 +93,9 @@ const Page = styled.button<PageType>`
   & + & {
     margin-left: 4px;
   }
-
+  &:hover {
+    background-color: #d3d3d3;
+  }
   &:disabled {
     cursor: default;
   }
