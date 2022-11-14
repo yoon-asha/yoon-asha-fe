@@ -1,8 +1,32 @@
 import type { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const LoginPage: NextPage = () => {
+  const router = useRouter();
+  const [isLogin, setIsLogin] = useState(false);
+
+  const clickLogin = async () => {
+    const res = await axios.post('http://localhost:3000/login', {
+      // id: userId,
+      // password: userPw,
+    });
+    try {
+      setIsLogin(true);
+      // router.push('/');
+    } catch {
+      (error: Error) => {
+        console.log(error);
+      };
+    }
+  };
+
+  useEffect(() => {
+    //login check
+  });
+
   return (
     <>
       <Form>
@@ -10,8 +34,10 @@ const LoginPage: NextPage = () => {
         <TextInput type='text' name='userId' required minLength={5} maxLength={30} />
         <Margin />
         <Label htmlFor='userPw'>비밀번호</Label>
-        <TextInput type='password' name='userPw' />
-        <LoginButton>로그인</LoginButton>
+        <TextInput type='password' name='userPw' required minLength={8} maxLength={30} />
+        <LoginButton type='submit' onClick={clickLogin}>
+          로그인
+        </LoginButton>
       </Form>
     </>
   );
@@ -19,7 +45,7 @@ const LoginPage: NextPage = () => {
 
 export default LoginPage;
 
-const Form = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin-top: 40px;
