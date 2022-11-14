@@ -1,44 +1,40 @@
-import Link from 'next/link';
 import type { NextPage } from 'next';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import products from '../../api/data/products.json';
+import { useRouter } from 'next/router';
 
 const ProductDetailPage: NextPage = () => {
-  const product = products[0];
+  const router = useRouter();
+  const index = Number(router.query.id);
+  const [currentPage, setCurrentPage] = useState(0);
+  let product = products[currentPage];
+
+  useEffect(() => {
+    if (index) {
+      setCurrentPage(index - 1);
+    }
+  }, [index]);
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
-      <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
-      <ProductInfoWrapper>
-        <Name>{product.name}</Name>
-        <Price>{product.price}원</Price>
-      </ProductInfoWrapper>
+      {currentPage < 0 || currentPage > products.length ? (
+        <div style={{ textAlign: 'center', margin: 50 }}>존재하지 않는 페이지입니다.</div>
+      ) : (
+        <>
+          <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
+          <ProductInfoWrapper>
+            <Name>{product.name}</Name>
+            <Price>{product.price.toLocaleString('ko-KR')}원</Price>
+          </ProductInfoWrapper>
+        </>
+      )}
     </>
   );
 };
 
 export default ProductDetailPage;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-`;
-
-const Title = styled.a`
-  font-size: 48px;
-`;
 
 const Thumbnail = styled.img`
   width: 100%;
