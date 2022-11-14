@@ -12,13 +12,17 @@ const ProductList = ({ products }: ProductListProps) => {
   return (
     <>
       <Container>
-        {products.map((product) => (
-          <Link href={`/products/${product.id}`}>
-            <a>
-              <ProductItem key={product.id} product={product} />
-            </a>
-          </Link>
-        ))}
+        {products.map((product) => {
+          return (
+            <>
+              <Link href={`/products/${product.id}`}>
+                <a>
+                  <ProductItem key={product.id} product={product} />
+                </a>
+              </Link>
+            </>
+          );
+        })}
       </Container>
     </>
   );
